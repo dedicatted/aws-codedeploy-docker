@@ -1,25 +1,12 @@
-docker build -t hello-world .
-docker save hello | gzip > hello-world-image.tar.gz
+# configuration
 
-tar -zcvf hello-world-deploy.tar.gz hello-world-image.tar.gz scripts appspec.yml
+* create .env file from .env.template
+* run ./build.sh
 
+# configure CodeDeploy instance
 
-tar -zxf hello-world-deploy.tar.gz -C /tmp
-
-push revision
-
-zip hello-world-deploy.zip scripts/* appspec.yml *image.tar.gz
-
-ssh -i /projects/notes/dedicatted/aws/common.pem ec2-user@52.207.137.186
-
-sudo yum update
-
-aws configure
-
-aws ecr describe-repositories
-
-# install codedeploy
-
+## codedeploy agent
+ 
 
 http://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-run-agent-install.html?shortFooter=true
 
@@ -31,7 +18,7 @@ chmod +x ./install
 sudo ./install auto
 sudo service codedeploy-agent status
 
-# install docker
+## install docker
 
 sudo yum install -y docker
 sudo service docker start
