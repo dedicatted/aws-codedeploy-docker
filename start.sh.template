@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -o xtrace
+
+echo 'Login to registry'
+eval "$(aws ecr get-login --region us-east-1)"
+
+VERSION=%VERSION%
+NAME=%NAME%
+REPOSITORY=%REPOSITORY%
+docker stop $NAME || true
+docker rm -f $NAME -f || true
+
+docker pull $REPOSITORY/$NAME:$VERSION
+docker run -d --name $NAME -p 80:8080 $REPOSITORY/$NAME:$VERSION

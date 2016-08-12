@@ -1,0 +1,7 @@
+version: 0.0
+os: linux
+hooks:
+  ApplicationStart:
+    - location: start.sh
+      timeout: 60
+      runas: ec2-user
